@@ -11,16 +11,16 @@ import java.util.Objects;
 import java.util.Optional;
 
 public abstract class GameItem{
-    abstract Material MATERIAL();
-    abstract String NAME();
-    abstract List<String> LORE();
-    abstract Optional<Map<Enchantment,Integer>> ENCHANTMENT();
+    protected abstract Material MATERIAL();
+    protected abstract Optional<String> NAME();
+    protected abstract List<String> LORE();
+    protected abstract Optional<Map<Enchantment,Integer>> ENCHANTMENT();
     private final ItemStack itemStack;
     public GameItem() {
         itemStack= new ItemStack(MATERIAL());
         ItemMeta itemMeta=itemStack.getItemMeta();
-        Objects.requireNonNull(itemMeta).setDisplayName(NAME());
-        itemMeta.setLore(LORE());
+        NAME().ifPresent(name -> Objects.requireNonNull(itemMeta).setDisplayName(name));
+        Objects.requireNonNull(itemMeta).setLore(LORE());
         ENCHANTMENT().ifPresent(m-> m.forEach((key, value) -> itemMeta.addEnchant(key, value, true)));
         itemStack.setItemMeta(itemMeta);
     }

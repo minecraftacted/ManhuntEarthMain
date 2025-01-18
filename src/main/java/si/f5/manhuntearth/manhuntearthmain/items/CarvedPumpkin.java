@@ -7,22 +7,22 @@ import java.util.*;
 
 public class CarvedPumpkin extends GameItem{
     @Override
-    Material MATERIAL() {
+    protected Material MATERIAL() {
         return Material.CARVED_PUMPKIN;
     }
 
     @Override
-    String NAME() {
-        return "J A C K";
+    protected Optional<String> NAME() {
+        return Optional.of("J A C K");
     }
 
     @Override
-    List<String> LORE() {
+    protected List<String> LORE() {
         return new ArrayList<>(Collections.singletonList("CURSE OF JACK"));
     }
 
     @Override
-    Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
+    protected Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
         Map<Enchantment,Integer> enchantment=new HashMap<>();
         enchantment.put(Enchantment.BINDING_CURSE,1);
         return Optional.of(enchantment);

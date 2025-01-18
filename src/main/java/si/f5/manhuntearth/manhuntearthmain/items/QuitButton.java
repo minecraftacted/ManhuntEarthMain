@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class QuitButton extends GameItemButton{
     public QuitButton(JavaPlugin javaPlugin) {
@@ -19,17 +20,17 @@ public class QuitButton extends GameItemButton{
     }
 
     @Override
-    Material MATERIAL() {
+    protected Material MATERIAL() {
         return Material.RED_BED;
     }
 
     @Override
-    String NAME() {
-        return "ゲームを退出";
+    protected Optional<String> NAME() {
+        return Optional.of("ゲームを退出");
     }
 
     @Override
-    List<String> LORE() {
+    protected List<String> LORE() {
         return new ArrayList<>(Collections.singletonList("ゲームを退出します。"));
     }
 }

@@ -144,8 +144,7 @@ public class Main extends BukkitRunnable{
     private void FinishHunterWaitingTime() {
         gameState=GameState.IN_THE_GAME;
         time=new GameTime(TIME_LIMIT);
-        hunterTeam.ClearAllPlayersItems();
-        hunterTeam.SetItemToAllPlayers(trackerCompass,0);
+        hunterTeam.ClearAndGiveInitialItems(trackerCompass);
         director.releaseHunter(gamePlayersList,hunterTeam,runnerTeam);
     }
     private void Stop() {

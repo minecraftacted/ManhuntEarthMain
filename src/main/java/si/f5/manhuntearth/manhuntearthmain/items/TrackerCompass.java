@@ -13,22 +13,22 @@ import java.util.*;
 
 public class TrackerCompass extends GameItem {
     @Override
-    Material MATERIAL() {
+    protected Material MATERIAL() {
         return Material.COMPASS;
     }
 
     @Override
-    String NAME() {
-        return "追跡機";
+    protected Optional<String> NAME() {
+        return Optional.of("追跡機");
     }
 
     @Override
-    List<String> LORE() {
+    protected List<String> LORE() {
         return new ArrayList<>(Arrays.asList("最も近い標的を指す。","位置情報は設定された時間が経過した後に更新される。","追われる者が持っても効果がない。"));
     }
 
     @Override
-    Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
+    protected Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
         return Optional.empty();
     }
 
@@ -51,7 +51,7 @@ public class TrackerCompass extends GameItem {
                 overWorld.getWorldBorder().setWarningDistance(0);
             }
         }.runTaskLater(plugin,new GameTime(0,3).Tick());
-        hunterTeam.SendMessage(NAME()+"の位置情報が更新された...");
+        NAME().ifPresent(name -> hunterTeam.SendMessage(name+"の位置情報が更新された..."));
         runnerTeam.SendMessage(hunterTeam.BUKKIT_TEAM_DISPLAY_NAME()+"に位置情報が送信された...");
         if(nextUpdate.isPresent()) {
             hunterTeam.SendMessage("次の更新: ["+nextUpdate.get().Format()+"]");

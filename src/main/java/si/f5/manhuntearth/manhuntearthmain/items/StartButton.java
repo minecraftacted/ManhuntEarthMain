@@ -8,6 +8,7 @@ import si.f5.manhuntearth.manhuntearthmain.Main;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class StartButton extends GameItemButton {
     public StartButton(JavaPlugin javaPlugin) {
@@ -20,12 +21,12 @@ public class StartButton extends GameItemButton {
     }
 
     @Override
-    public String NAME() {
-        return "スタート";
+    public Optional<String> NAME() {
+        return Optional.of("スタート");
     }
 
     @Override
-    List<String> LORE() {
+    protected List<String> LORE() {
         return new ArrayList<>(Collections.singletonList("ゲームを開始します。"));
     }
 
