@@ -22,7 +22,9 @@ public class AlliesLocationViewer {
                     +ally.GetLocation().getBlockX()+","+ally.GetLocation().getBlockY()+","+ally.GetLocation().getBlockZ()
                     +ChatColor.GOLD+"|"+ChatColor.RESET));
             String title = titleBuilder.toString();
-            hunter.SendActionbarMessage(title);
+            if(allies.size()!=0) {
+                hunter.SendActionbarMessage(title);
+            }
         }
         for(GamePlayer runner:runnerTeam.GetGamePlayers()) {
             List<GamePlayer> allies = runnerTeam.GetGamePlayers().stream().filter(gamePlayer -> !(gamePlayer.equals(runner))).collect(Collectors.toList());
