@@ -72,7 +72,7 @@ public class VictoryJudge implements Listener {
                 e.setQuitMessage(e.getQuitMessage()+"\n"+hunterTeam.BUKKIT_TEAM_COLOR()+hunterTeam.BUKKIT_TEAM_DISPLAY_NAME()+"は残り"+hunterTeam.Size()+"人");
             }
             if(runnerTeam.Contains(e.getPlayer())&&runnerTeam.Size()!=1) {
-                e.setQuitMessage(e.getQuitMessage()+"\n"+runnerTeam.BUKKIT_TEAM_COLOR()+runnerTeam.BUKKIT_TEAM_DISPLAY_NAME()+"は残り"+hunterTeam.Size()+"人");
+                e.setQuitMessage(e.getQuitMessage()+"\n"+runnerTeam.BUKKIT_TEAM_COLOR()+runnerTeam.BUKKIT_TEAM_DISPLAY_NAME()+"は残り"+runnerTeam.Size()+"人");
             }
             onDecreaseInPlayers(new GamePlayer(e.getPlayer()));
         }

@@ -1,5 +1,6 @@
 package si.f5.manhuntearth.manhuntearthmain.items;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;

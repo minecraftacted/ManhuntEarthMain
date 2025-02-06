@@ -20,6 +20,12 @@ public class Director {
             for(String winCondition:team.winConditions()) {
                 Bukkit.broadcastMessage("・"+winCondition);
             }
+            Bukkit.broadcastMessage(team.BUKKIT_TEAM_COLOR()+"=="+team.BUKKIT_TEAM_DISPLAY_NAME()+"メンバー==");
+            for(GamePlayer gameplayer:team.GetGamePlayers()) {
+                Bukkit.broadcastMessage(gameplayer.GetName());
+            }
+            Bukkit.broadcastMessage("");
+            Bukkit.broadcastMessage("");
         }
     }
     public void releaseHunter(GamePlayersList gamePlayersList, GameTeam... teams) {

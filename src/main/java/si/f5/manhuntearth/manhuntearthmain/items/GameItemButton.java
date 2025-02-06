@@ -60,8 +60,8 @@ public abstract class GameItemButton extends GameItem implements Listener {
         return IsThisItem(player.GetItemInMainHand());
     }
     private boolean IsThisItem(ItemStack itemStack) {
+        if(itemStack==null) return false;
         if(itemStack.getType() != this.MATERIAL()) return false;
-        if(!(Objects.requireNonNull(itemStack.getItemMeta()).getDisplayName().equals(this.NAME()))) return false;
         for(Map.Entry<Enchantment,Integer> entry:itemStack.getItemMeta().getEnchants().entrySet()) {
             if(entry.getKey().getKey().equals(ENCHANTMENT_FOR_IDENTIFICATION.getKey()) && entry.getValue()==LEVEL_OF_ENCHANTMENT_FOR_IDENTIFICATION) {
                 return true;
@@ -70,7 +70,7 @@ public abstract class GameItemButton extends GameItem implements Listener {
         return false;
     }
     @Override
-    public Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
+    protected Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
         return Optional.empty();
     }
     abstract protected void Process(PlayerInteractEvent e);
