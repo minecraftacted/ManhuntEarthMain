@@ -47,7 +47,7 @@ public class TrackerCompass extends GameItemButton {
     }
 
     @Override
-    protected void Process(PlayerInteractEvent e) {
+    protected void process(PlayerInteractEvent e) {
         selectTarget(e);
     }
 

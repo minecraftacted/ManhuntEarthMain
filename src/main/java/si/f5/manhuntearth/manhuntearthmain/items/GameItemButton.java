@@ -35,7 +35,7 @@ public abstract class GameItemButton extends GameItem implements Listener {
         }
         e.setCancelled(true);
         if(e.getAction()==Action.RIGHT_CLICK_AIR || e.getAction()==Action.RIGHT_CLICK_BLOCK) {
-            Process(e);
+            process(e);
         }
     }
     @EventHandler
@@ -73,5 +73,5 @@ public abstract class GameItemButton extends GameItem implements Listener {
     protected Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
         return Optional.empty();
     }
-    abstract protected void Process(PlayerInteractEvent e);
+    abstract protected void process(PlayerInteractEvent e);
 }
