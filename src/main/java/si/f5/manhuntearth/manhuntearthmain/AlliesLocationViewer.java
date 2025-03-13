@@ -36,7 +36,9 @@ public class AlliesLocationViewer {
                             +ally.GetLocation().getBlockX()+","+ally.GetLocation().getBlockY()+","+ally.GetLocation().getBlockZ()
                             +ChatColor.GOLD+"|"+ChatColor.RESET));
             String title = titleBuilder.toString();
-            runner.SendActionbarMessage(title);
+            if(allies.size()!=0) {
+                runner.SendActionbarMessage(title);
+            }
         }
     }
 }
