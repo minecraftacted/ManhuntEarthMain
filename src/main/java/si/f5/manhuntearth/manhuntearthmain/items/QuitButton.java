@@ -15,7 +15,7 @@ public class QuitButton extends GameItemButton{
     }
 
     @Override
-    protected void process(PlayerInteractEvent e) {
+    protected void Process(PlayerInteractEvent e) {
         e.getPlayer().kickPlayer("ゲームを退出しました。");
     }
 

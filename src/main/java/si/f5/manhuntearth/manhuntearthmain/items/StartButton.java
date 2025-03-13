@@ -32,7 +32,7 @@ public class StartButton extends GameItemButton {
     }
 
     @Override
-    protected void process(PlayerInteractEvent e) {
+    protected void Process(PlayerInteractEvent e) {
         Main.StartFlag();
     }
 }
