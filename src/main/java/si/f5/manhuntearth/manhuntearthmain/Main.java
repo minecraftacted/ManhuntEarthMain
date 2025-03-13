@@ -62,7 +62,7 @@ public class Main extends BukkitRunnable{
 
         startButton= new StartButton(this.plugin);
         quitButton= new QuitButton(this.plugin);
-        trackerCompass= new TrackerCompass(this.plugin,runnerTeam);
+        trackerCompass= new TrackerCompass(this.plugin);
 
         Bukkit.getServer().getPluginManager().registerEvents(new PlayersListUpdater(gamePlayersList),this.plugin);
         Bukkit.getServer().getPluginManager().registerEvents(new AutoShutdowner(),this.plugin);
