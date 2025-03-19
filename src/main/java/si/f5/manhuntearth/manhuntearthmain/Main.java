@@ -62,7 +62,7 @@ public class Main extends BukkitRunnable{
 
         startButton= new StartButton(this.plugin);
         quitButton= new QuitButton(this.plugin);
-        trackerCompass= new TrackerCompass(this.plugin,runnerTeam);
+        trackerCompass= new TrackerCompass(this.plugin, hunterTeam, runnerTeam);
 
         Bukkit.getServer().getPluginManager().registerEvents(new PlayersListUpdater(gamePlayersList),this.plugin);
         Bukkit.getServer().getPluginManager().registerEvents(new AutoShutdowner(),this.plugin);
@@ -174,7 +174,7 @@ public class Main extends BukkitRunnable{
         }
     }
     private void InTheGame() {
-        trackerCompass.TryUpdate(hunterTeam,runnerTeam,trackerUpdateTime,time, gameWorld.GetOverWorld(), plugin);
+        trackerCompass.tryUpdate(hunterTeam,runnerTeam,trackerUpdateTime,time, gameWorld.GetOverWorld(), plugin);
         bossBarTimer.Update(TIME_LIMIT,time, Optional.empty());
         AlliesLocationViewer.update(hunterTeam,runnerTeam);
         time = time.Decrement();

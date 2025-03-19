@@ -47,7 +47,7 @@ public class GameWorld {
                 locToHoldBack.setPitch(e.getFrom().getPitch());
                 player.Teleport(locToHoldBack);
                 player.SendActionbarMessage(ChatColor.RED+"開始前はこれ以上初期スポーンから離れられません！");
-                player.PlaySound(Sound.ENTITY_ENDERMAN_TELEPORT,1f,0.5f);
+                player.playSound(Sound.ENTITY_ENDERMAN_TELEPORT,1f,0.5f);
             }
         },plugin);
         Bukkit.getPluginManager().registerEvents(new Listener() {

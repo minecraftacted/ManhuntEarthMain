@@ -40,7 +40,7 @@ public class GamePlayersList {
         GetHost().ifPresent(v ->v.SetItem(item,slot));
     }
     public void PlaySound(Sound sound, float volume, float pitch) {
-        playersList.forEach(gamePlayer -> gamePlayer.PlaySound(sound, volume, pitch));
+        playersList.forEach(gamePlayer -> gamePlayer.playSound(sound, volume, pitch));
     }
     public void InitializeAllPlayers() {
         ClearALlPlayers();

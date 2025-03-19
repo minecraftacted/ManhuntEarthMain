@@ -17,13 +17,13 @@ public class BossBarTimer {
         }
     }
     public void Update(GameTime max, GameTime now, Optional<String> titlePrefix) {
-        bossBar.setProgress(((double) now.Tick() /(double) max.Tick()));
+        bossBar.setProgress(((double) now.tick() /(double) max.tick()));
         StringBuilder title=new StringBuilder();
         titlePrefix.ifPresent(tp-> {
             title.append(tp);
             title.append(" ");
         });
-        title.append(now.Format());
+        title.append(now.format());
         bossBar.setTitle(title.toString());
     }
     public void Remove() {

@@ -25,7 +25,7 @@ public class GameTime {
     public GameTime Decrement() {
         return new GameTime(this.tick-1);
     }
-    public String Format() {
+    public String format() {
         StringBuilder format=new StringBuilder();
         if(Minutes()<10) {
             format.append(0);
@@ -47,7 +47,7 @@ public class GameTime {
     public boolean isZero() {
         return tick==0;
     }
-    public int Tick() {
+    public int tick() {
         return tick;
     }
     @Override

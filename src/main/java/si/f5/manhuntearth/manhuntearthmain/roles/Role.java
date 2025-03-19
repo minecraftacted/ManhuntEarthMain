@@ -48,10 +48,10 @@ public abstract class Role {
         bukkitTeam.getPlayers().forEach(p-> GamePlayer.New(p).AddEffect(type,duration,amplifier,particles));
     }
     final public void SendMessage(String message) {
-        bukkitTeam.getPlayers().forEach(p -> GamePlayer.New(p).SendMessage(message));
+        bukkitTeam.getPlayers().forEach(p -> GamePlayer.New(p).sendMessage(message));
     }
     final public void PlaySound(Sound sound, float volume, float pitch) {
-        bukkitTeam.getPlayers().forEach(p-> GamePlayer.New(p).PlaySound(sound,volume,pitch));
+        bukkitTeam.getPlayers().forEach(p-> GamePlayer.New(p).playSound(sound,volume,pitch));
     }
     final public void ShowTitle(String title, String subTitle, GameTime fadeIn, GameTime stay, GameTime fadeOut) {
         bukkitTeam.getPlayers().forEach(p-> GamePlayer.New(p).ShowTitle(title,subTitle,fadeIn,stay,fadeOut));
