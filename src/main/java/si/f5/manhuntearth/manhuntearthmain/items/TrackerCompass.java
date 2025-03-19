@@ -2,6 +2,7 @@ package si.f5.manhuntearth.manhuntearthmain.items;
 
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,13 +18,14 @@ import java.util.*;
 public class TrackerCompass extends GameItemButton {
     final private List<RunnerLocation> runnerLocations = new ArrayList<>();
     final private List<HunterTarget> hunterTargets = new ArrayList<>();
+    final private List<GamePlayer> huntersInCooldown = new ArrayList<>();
     final private HunterTeam hunterTeam;
-    final private RunnerTeam runnerTeam;
+    final private JavaPlugin plugin;
 
     public TrackerCompass(final JavaPlugin javaPlugin, final HunterTeam hunterTeam, final RunnerTeam runnerTeam) {
         super(javaPlugin);
+        this.plugin = javaPlugin;
         this.hunterTeam = hunterTeam;
-        this.runnerTeam = runnerTeam;
     }
 
     @Override
@@ -42,15 +44,22 @@ public class TrackerCompass extends GameItemButton {
     }
 
     @Override
-    protected Optional<Map<Enchantment, Integer>> ENCHANTMENT() {
-        return Optional.empty();
-    }
-
-    @Override
     protected void process(PlayerInteractEvent e) {
         //使用者はハンターでなければならない
-        if(this.hunterTeam.DoesNotContain(e.getPlayer())) return;
-        selectTarget(GamePlayer.New(e.getPlayer()));
+        Player p = e.getPlayer();
+        GamePlayer gp = GamePlayer.New(p);
+
+        if(huntersInCooldown.contains(gp)) return;
+        huntersInCooldown.add(gp);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                huntersInCooldown.remove(gp);
+            }
+        }.runTaskLater(plugin,2);
+
+        if(this.hunterTeam.DoesNotContain(p)) return;
+        selectTarget(gp);
     }
 
     public void tryUpdate(final HunterTeam hunterTeam, final RunnerTeam runnerTeam, final List<GameTime> updateTime, final GameTime now, final World overWorld, final Plugin plugin) {
