@@ -6,7 +6,6 @@ import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import si.f5.manhuntearth.manhuntearthmain.roles.GameTeam;
 import si.f5.manhuntearth.manhuntearthmain.roles.HunterTeam;
@@ -41,29 +40,15 @@ public class VictoryJudge implements Listener {
                 spectatorSubTitle=winningTeam.BUKKIT_TEAM_COLOR()+losingTeam.BUKKIT_TEAM_DISPLAY_NAME()+"が全滅した！";
                 break;
             case TIME_UP:
-                winningTeamSubTitle=ChatColor.GOLD+"時間切れになった！";
-                losingTeamSubTitle=ChatColor.DARK_RED+"時間切れになってしまった...";
+                winningTeamSubTitle=ChatColor.GOLD+"逃げ切った！";
+                losingTeamSubTitle=ChatColor.DARK_RED+"逃げ切られてしまった...";
                 spectatorSubTitle=winningTeam.BUKKIT_TEAM_COLOR()+"時間切れになった！";
-                break;
-            case RUNNER_ESCAPE_TO_NETHER:
-                winningTeamSubTitle=ChatColor.GOLD+"脱出した！";
-                losingTeamSubTitle=ChatColor.DARK_RED+winningTeam.BUKKIT_TEAM_DISPLAY_NAME()+"が脱出してしまった...";
-                spectatorSubTitle=winningTeam.BUKKIT_TEAM_COLOR()+winningTeam.BUKKIT_TEAM_DISPLAY_NAME()+"が脱出した！";
                 break;
         }
         winningTeam.ShowTitle("勝利",winningTeamSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
         losingTeam.ShowTitle("敗北",losingTeamSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
         spectatorRole.ShowTitle(winningTeam.BUKKIT_TEAM_DISPLAY_NAME()+"の勝利",spectatorSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
         gamePlayersList.playersList.forEach(spectatorRole::AddPlayer);
-    }
-    @EventHandler
-    public void onRunnerEntersPortal(PlayerPortalEvent e) {
-        if(Main.GetGameState()==GameState.IN_THE_GAME){
-            e.setCancelled(true);
-            if(runnerTeam.Contains(e.getPlayer())){
-                GameOver(runnerTeam,hunterTeam,GameOverReason.RUNNER_ESCAPE_TO_NETHER);
-            }
-        }
     }
     @EventHandler
     public void onPlayerBelongsToEitherTeamQuit(PlayerQuitEvent e) {
@@ -84,7 +69,7 @@ public class VictoryJudge implements Listener {
         }
     }
     public void onTimeIsUp() {
-        GameOver(hunterTeam,runnerTeam,GameOverReason.TIME_UP);
+        GameOver(runnerTeam,hunterTeam,GameOverReason.TIME_UP);
     }
     private void onDecreaseInPlayers(GamePlayer gamePlayer) {
         gamePlayersList.PlaySound(Sound.ENTITY_ENDER_DRAGON_HURT,1,0.5f);
@@ -98,5 +83,5 @@ public class VictoryJudge implements Listener {
     }
 }
 enum GameOverReason {
-    TIME_UP,ANNIHILATION,RUNNER_ESCAPE_TO_NETHER
+    TIME_UP,ANNIHILATION
 }

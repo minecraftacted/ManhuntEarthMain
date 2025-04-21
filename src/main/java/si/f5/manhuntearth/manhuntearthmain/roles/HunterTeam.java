@@ -201,7 +201,7 @@ public class HunterTeam extends GameTeam {
 
     @Override
     public String[] winConditions() {
-        return new String[]{"時間切れ","逃走者全員が死ぬ(全員を倒す)"};
+        return new String[]{"逃走者全員が死ぬ(全員を倒す)"};
     }
 
     @Override
