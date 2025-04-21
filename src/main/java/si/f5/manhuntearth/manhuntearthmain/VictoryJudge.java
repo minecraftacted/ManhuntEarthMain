@@ -30,24 +30,11 @@ public class VictoryJudge implements Listener {
         winningTeam.PlaySound(Sound.UI_TOAST_CHALLENGE_COMPLETE,1,1);
         losingTeam.PlaySound(Sound.ITEM_TRIDENT_THUNDER,1,1);
         spectatorRole.PlaySound(Sound.BLOCK_NOTE_BLOCK_BIT,1,1);
-        String winningTeamSubTitle = "";
-        String losingTeamSubTitle = "";
-        String spectatorSubTitle = "";
-        switch (gameOverReason){
-            case ANNIHILATION:
-                winningTeamSubTitle=ChatColor.GOLD+losingTeam.BUKKIT_TEAM_DISPLAY_NAME()+"が全滅した！";
-                losingTeamSubTitle=ChatColor.DARK_RED+"全滅してしまった...";
-                spectatorSubTitle=winningTeam.BUKKIT_TEAM_COLOR()+losingTeam.BUKKIT_TEAM_DISPLAY_NAME()+"が全滅した！";
-                break;
-            case TIME_UP:
-                winningTeamSubTitle=ChatColor.GOLD+"逃げ切った！";
-                losingTeamSubTitle=ChatColor.DARK_RED+"逃げ切られてしまった...";
-                spectatorSubTitle=winningTeam.BUKKIT_TEAM_COLOR()+"時間切れになった！";
-                break;
-        }
-        winningTeam.ShowTitle("勝利",winningTeamSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
-        losingTeam.ShowTitle("敗北",losingTeamSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
-        spectatorRole.ShowTitle(winningTeam.BUKKIT_TEAM_DISPLAY_NAME()+"の勝利",spectatorSubTitle,new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
+
+        winningTeam.ShowTitle("勝利", gameOverReason.winningTeamSubtitle(), new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
+        losingTeam.ShowTitle("敗北", gameOverReason.losingTeamSubtitle(), new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
+        spectatorRole.ShowTitle(winningTeam.BUKKIT_TEAM_DISPLAY_NAME()+"の勝利", gameOverReason.spectatorSubtitle(), new GameTime(0,1),new GameTime(0,3),new GameTime(0,1));
+
         gamePlayersList.playersList.forEach(spectatorRole::AddPlayer);
     }
     @EventHandler
@@ -69,19 +56,56 @@ public class VictoryJudge implements Listener {
         }
     }
     public void onTimeIsUp() {
-        GameOver(runnerTeam,hunterTeam,GameOverReason.TIME_UP);
+        GameOver(runnerTeam,hunterTeam,new TimeUP());
     }
     private void onDecreaseInPlayers(GamePlayer gamePlayer) {
         gamePlayersList.PlaySound(Sound.ENTITY_ENDER_DRAGON_HURT,1,0.5f);
         spectatorRole.AddPlayer(gamePlayer);
         if(hunterTeam.Size()==0) {
-            GameOver(runnerTeam,hunterTeam,GameOverReason.ANNIHILATION);
+            GameOver(runnerTeam,hunterTeam,new Annihilation());
         }
         else if(runnerTeam.Size()==0) {
-            GameOver(hunterTeam,runnerTeam,GameOverReason.ANNIHILATION);
+            GameOver(hunterTeam,runnerTeam,new Annihilation());
         }
     }
 }
-enum GameOverReason {
-    TIME_UP,ANNIHILATION
+interface GameOverReason {
+    String winningTeamSubtitle();
+    String losingTeamSubtitle();
+    String spectatorSubtitle();
+}
+class TimeUP implements GameOverReason {
+
+    @Override
+    public String winningTeamSubtitle() {
+        return ChatColor.GOLD+"逃げ切った！";
+    }
+
+    @Override
+    public String losingTeamSubtitle() {
+        return ChatColor.DARK_RED+"逃げ切られてしまった...";
+    }
+
+    @Override
+    public String spectatorSubtitle() {
+        return "時間切れになった！";
+    }
+}
+
+class Annihilation implements GameOverReason {
+
+    @Override
+    public String winningTeamSubtitle() {
+        return ChatColor.GOLD+"敵が全滅した！";
+    }
+
+    @Override
+    public String losingTeamSubtitle() {
+        return ChatColor.DARK_RED+"全滅してしまった...";
+    }
+
+    @Override
+    public String spectatorSubtitle() {
+        return "相手が全滅した！";
+    }
 }
