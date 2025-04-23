@@ -146,6 +146,7 @@ public class Main extends BukkitRunnable{
         time=new GameTime(TIME_LIMIT);
         hunterTeam.ClearAndGiveInitialItems(trackerCompass);
         director.releaseHunter(gamePlayersList,hunterTeam,runnerTeam);
+        Bukkit.getServer().getPluginManager().registerEvents(new HunterSuperPunch(runnerTeam,hunterTeam),this.plugin);
     }
     private void Stop() {
         stopFlag.set(false);
